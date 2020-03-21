@@ -6,6 +6,7 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     private Rigidbody2D rigid2D;
+    private Shoot shoot;
     private Vector2 input;
     public float speed = 1;
     public float acc = 10;
@@ -16,12 +17,14 @@ public class Move : MonoBehaviour
     void Awake()
     {
         rigid2D = GetComponent<Rigidbody2D>();
+        shoot = GetComponent<Shoot>();
     }
 
     // Update is called once per frame
     void Update()
     {
         input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        input -= shoot.endVector;
         rigid2D.AddForce(input.x * Vector2.right * speed * acc);
     }
 
